@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::InputMonster;
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 # ABSTRACT: consume data from multiple sources, best first; om nom nom!
 
@@ -25,7 +25,20 @@ sub new {
 sub _assert_field_spec_ok {
   my ($self, $spec) = @_;
 
-  return 1;
+  Carp::confess("illegal or missing sources")
+    unless $spec->{sources} and ref $spec->{sources} eq 'ARRAY';
+
+  Carp::confess("if given, filter must be a coderef")
+    if $spec->{filter} and ref $spec->{filter} ne 'CODE';
+
+  Carp::confess("if given, check must be a coderef")
+    if $spec->{check} and ref $spec->{check} ne 'CODE';
+
+  Carp::confess("if given, store must be a coderef")
+    if $spec->{store} and ref $spec->{store} ne 'CODE';
+
+  Carp::confess("defaults that are references must be wrapped in code")
+    if ((ref $spec->{default})||'CODE') ne 'CODE';
 }
 
 
@@ -84,35 +97,13 @@ Data::InputMonster - consume data from multiple sources, best first; om nom nom!
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 DESCRIPTION
 
 This module lets you describe a bunch of input fields you expect.  For each
 field, you can specify validation, a default, and multiple places to look for a
 value.  The first valid value found is accepted and returned in the results.
-
-=head1 METHODS
-
-=head2 new
-
-    my $monster = Data::InputMonster->new({
-      fields => {
-        field_name => \%field_spec,
-        ...
-      },
-    });
-
-This builds a new monster.  For more information on the C<%field_spec>
-parameters, see below.
-
-=head2 consume
-
-    my $result = $monster->consume($input);
-
-This method processes the given input and returns a hashref of the finally
-accepted values.  C<$input> can be anything; it is up to the field definitions
-to expect and handle the data you plan to feed the monster.
 
 =head1 FIELD DEFINITIONS
 
@@ -147,6 +138,28 @@ with the following entries:
 
 If default is given, it must be a simple scalar (in which case that is the
 default) or a coderef that will be called to provide a default value as needed.
+
+=head1 METHODS
+
+=head2 new
+
+    my $monster = Data::InputMonster->new({
+      fields => {
+        field_name => \%field_spec,
+        ...
+      },
+    });
+
+This builds a new monster.  For more information on the C<%field_spec>
+parameters, see below.
+
+=head2 consume
+
+    my $result = $monster->consume($input);
+
+This method processes the given input and returns a hashref of the finally
+accepted values.  C<$input> can be anything; it is up to the field definitions
+to expect and handle the data you plan to feed the monster.
 
 =head1 AUTHOR
 
