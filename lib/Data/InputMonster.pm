@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::InputMonster;
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 # ABSTRACT: consume data from multiple sources, best first; om nom nom!
 
@@ -77,7 +77,14 @@ sub consume {
       
       $output{ $field_name } = $value;
       if ($storer) {
-        $storer->($self, { source => $name, value => $value });
+        $storer->(
+          $self,
+          {
+            input  => $input,
+            source => $name,
+            value  => $value,
+          },
+        );
       }
 
       next FIELD;
@@ -103,7 +110,7 @@ Data::InputMonster - consume data from multiple sources, best first; om nom nom!
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 DESCRIPTION
 
@@ -141,6 +148,7 @@ with the following entries:
 
     value  - the value accepted
     source - the name of the source from which the value was accepted
+    input  - the input given to the consume method
 
 If default is given, it must be a simple scalar (in which case that is the
 default) or a coderef that will be called to provide a default value as needed.
