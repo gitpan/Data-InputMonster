@@ -9,7 +9,7 @@ WriteMakefile(
   NAME      => 'Data::InputMonster',
   AUTHOR    => 'Ricardo\ SIGNES\ \<rjbs\@cpan\.org\>',
   ABSTRACT  => 'consume data from multiple sources, best first; om nom nom!',
-  VERSION   => '0.004',
+  VERSION   => '0.005',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {

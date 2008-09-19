@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::InputMonster::Util;
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 
 # ABSTRACT: handy routines for use with the input monster
 use Sub::Exporter::Util qw(curry_method);
@@ -55,7 +55,7 @@ Data::InputMonster::Util - handy routines for use with the input monster
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 DESCRIPTION
 
