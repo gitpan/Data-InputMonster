@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::InputMonster::Util;
-our $VERSION = '0.006';
+our $VERSION = '0.005';
 
 # ABSTRACT: handy routines for use with the input monster
 use Sub::Exporter::Util qw(curry_method);
@@ -17,9 +17,8 @@ use Sub::Exporter -setup => {
 sub dig {
   my ($self, $locator) = @_;
   
-  Carp::confess("no locator given") unless defined $locator;
-
-  $locator = [ $locator ] unless ref $locator;
+  Carp::confess("locator must be either a code or array reference")
+    unless ref $locator;
 
   if (ref $locator eq 'CODE') {
     return sub { $locator->($_[1]) };
@@ -56,7 +55,7 @@ Data::InputMonster::Util - handy routines for use with the input monster
 
 =head1 VERSION
 
-version 0.006
+version 0.005
 
 =head1 DESCRIPTION
 
@@ -72,8 +71,7 @@ exported as routines upon request.
 
 A C<dig> source looks through the input using the given locator.  If it's a
 coderef, the code is called and passed the input.  If it's an arrayref, each
-entry is used, in turn, to subscript the input as a deep data structure.  If
-it's a plain scalar, it's treated like a one-element arrayref would have been.
+entry is used, in turn, to subscript the input as a deep data structure.
 
 For example, given:
 

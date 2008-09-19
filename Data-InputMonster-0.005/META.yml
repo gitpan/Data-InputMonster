@@ -8,4 +8,4 @@ name: Data-InputMonster
 requires: 
   Carp: 0
   Sub::Exporter: 0
-version: 0.006
+version: 0.005

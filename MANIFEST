@@ -1,4 +1,17 @@
 Changes
+Data-InputMonster-0.005.tar.gz
+Data-InputMonster-0.005/Changes
+Data-InputMonster-0.005/LICENSE
+Data-InputMonster-0.005/MANIFEST
+Data-InputMonster-0.005/META.yml
+Data-InputMonster-0.005/Makefile.PL
+Data-InputMonster-0.005/README
+Data-InputMonster-0.005/dist.ini
+Data-InputMonster-0.005/eg/eg.pl
+Data-InputMonster-0.005/lib/Data/InputMonster.pm
+Data-InputMonster-0.005/lib/Data/InputMonster/Util.pm
+Data-InputMonster-0.005/t/basic.t
+Data-InputMonster-0.005/t/util.t
 LICENSE
 MANIFEST
 META.yml
