@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package Data::InputMonster::Util;
-our $VERSION = '0.008';
-
+{
+  $Data::InputMonster::Util::VERSION = '0.009';
+}
 # ABSTRACT: handy routines for use with the input monster
 use Sub::Exporter::Util qw(curry_method);
 
@@ -56,7 +57,7 @@ Data::InputMonster::Util - handy routines for use with the input monster
 
 =head1 VERSION
 
-version 0.008
+version 0.009
 
 =head1 DESCRIPTION
 
@@ -67,8 +68,8 @@ exported as routines upon request.
 
 =head2 dig
 
-    my $source = dig( [ $key1, $key2, $key2 ]);
-    my $source = dig( sub { ... } );
+  my $source = dig( [ $key1, $key2, $key2 ]);
+  my $source = dig( sub { ... } );
 
 A C<dig> source looks through the input using the given locator.  If it's a
 coderef, the code is called and passed the input.  If it's an arrayref, each
@@ -77,22 +78,20 @@ it's a plain scalar, it's treated like a one-element arrayref would have been.
 
 For example, given:
 
-    $input  = [ { ... }, { ... }, { foo => [ { bar => 13, baz => undef } ] } ];
-    $source = dig( [ qw( 2 foo 0 bar ) ] );
+  $input  = [ { ... }, { ... }, { foo => [ { bar => 13, baz => undef } ] } ];
+  $source = dig( [ qw( 2 foo 0 bar ) ] );
 
 The source would find 13.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
-
+=cut

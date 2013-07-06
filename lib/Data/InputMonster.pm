@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package Data::InputMonster;
-our $VERSION = '0.008';
-
+{
+  $Data::InputMonster::VERSION = '0.009';
+}
 # ABSTRACT: consume data from multiple sources, best first; om nom nom!
 
 
@@ -113,7 +114,7 @@ Data::InputMonster - consume data from multiple sources, best first; om nom nom!
 
 =head1 VERSION
 
-version 0.008
+version 0.009
 
 =head1 DESCRIPTION
 
@@ -121,20 +122,47 @@ This module lets you describe a bunch of input fields you expect.  For each
 field, you can specify validation, a default, and multiple places to look for a
 value.  The first valid value found is accepted and returned in the results.
 
+=head1 METHODS
+
+=head2 new
+
+  my $monster = Data::InputMonster->new({
+    fields => {
+      field_name => \%field_spec,
+      ...
+    },
+  });
+
+This builds a new monster.  For more information on the C<%field_spec>
+parameters, see below.
+
+=head2 consume
+
+  my $result = $monster->consume($input, \%arg);
+
+This method processes the given input and returns a hashref of the finally
+accepted values.  C<$input> can be anything; it is up to the field definitions
+to expect and handle the data you plan to feed the monster.
+
+Valid arguments are:
+
+  no_default_for - a field name or arrayref of field names for which to NOT
+                   fall back to default values
+
 =head1 FIELD DEFINITIONS
 
 Each field is defined by a hashref with the following entries:
 
-    sources - an arrayref of sources; see below; required
-    filter  - a coderef to preprocess candidate values
-    check   - a coderef to validate candidate values
-    store   - a coderef to store accepted values
-    default - a value to use if no source provides an acceptable value
+  sources - an arrayref of sources; see below; required
+  filter  - a coderef to preprocess candidate values
+  check   - a coderef to validate candidate values
+  store   - a coderef to store accepted values
+  default - a value to use if no source provides an acceptable value
 
 Sources may be given in one of two formats:
 
-    [ source_name => $source, ... ]
-    [ $source_1, $source_2, ... ]
+  [ source_name => $source, ... ]
+  [ $source_1, $source_2, ... ]
 
 In the second form, sources will be assigned unique names.
 
@@ -150,52 +178,23 @@ value is acceptable.
 Store is called if a value is accepted.  It is passed the monster and a hashref
 with the following entries:
 
-    value  - the value accepted
-    source - the name of the source from which the value was accepted
-    input  - the input given to the consume method
-    field_name - the field name
+  value  - the value accepted
+  source - the name of the source from which the value was accepted
+  input  - the input given to the consume method
+  field_name - the field name
 
 If default is given, it must be a simple scalar (in which case that is the
 default) or a coderef that will be called to provide a default value as needed.
 
-=head1 METHODS
-
-=head2 new
-
-    my $monster = Data::InputMonster->new({
-      fields => {
-        field_name => \%field_spec,
-        ...
-      },
-    });
-
-This builds a new monster.  For more information on the C<%field_spec>
-parameters, see below.
-
-=head2 consume
-
-    my $result = $monster->consume($input, \%arg);
-
-This method processes the given input and returns a hashref of the finally
-accepted values.  C<$input> can be anything; it is up to the field definitions
-to expect and handle the data you plan to feed the monster.
-
-Valid arguments are:
-
-    no_default_for - a field name or arrayref of field names for which to NOT
-                     fall back to default values
-
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
-
+=cut
