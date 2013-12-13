@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Data::InputMonster;
 {
-  $Data::InputMonster::VERSION = '0.009';
+  $Data::InputMonster::VERSION = '0.010';
 }
 # ABSTRACT: consume data from multiple sources, best first; om nom nom!
 
@@ -108,13 +108,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Data::InputMonster - consume data from multiple sources, best first; om nom nom!
 
 =head1 VERSION
 
-version 0.009
+version 0.010
 
 =head1 DESCRIPTION
 

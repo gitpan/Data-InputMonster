@@ -9,7 +9,6 @@ dist.ini
 eg/eg.pl
 lib/Data/InputMonster.pm
 lib/Data/InputMonster/Util.pm
-t/00-compile.t
 t/000-report-versions-tiny.t
 t/basic.t
 t/util.t
